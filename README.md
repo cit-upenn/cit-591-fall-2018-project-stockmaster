@@ -1,1 +1,1 @@
-# BlackjackApp
+# StockMaster
