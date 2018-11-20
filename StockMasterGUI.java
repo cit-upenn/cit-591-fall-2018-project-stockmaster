@@ -28,7 +28,7 @@ public class StockMasterGUI {
 		button4.setText("Monthly");
 		button5.setText("Quarterly");
 		Button1Listener button1Listener = new Button1Listener(label1, textField);
-		Button2Listener button2Listener = new Button2Listener(button2, button3, button4, button5);
+		Button2Listener button2Listener = new Button2Listener();
 		button1.addActionListener(button1Listener);	
 		
 		panel.add(label1);
