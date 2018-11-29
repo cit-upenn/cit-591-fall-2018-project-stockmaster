@@ -25,17 +25,17 @@ import java.io.IOException;
  */
 public class StockMasterGUI extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private final String imageLocation1 = "pic1.png";
-	private final String imageLocation2 = "pic2.png";
-	private final String imageLocation3 = "pic3.png";
-	private final String imageLocation4 = "pic4.png";
-	private final String imageLocation5 = "pic5.png";
-	private ImageIcon icon1;
-	private JLabel emojiLabel1;
+	private static final long serialVersionUID = 1;
+	private final String imgLoc1 = "pic1.png";
+	private final String imgLoc2 = "pic2.png";
+	private final String imgLoc3 = "pic3.png";
+	private final String imgLoc4 = "pic4.png";
+	private final String imgLoc5 = "pic5.png";
+	private ImageIcon imgIcon;
+	private JLabel emojiLabel;
 	private JPanel panel;
-	private JLabel label1;
-	private JLabel label2;
+	private JLabel stockLabel;
+	private JLabel rangeLabel;
 	private JTextField textField;
 	private JButton button1;
 	private JButton button2;
@@ -44,6 +44,7 @@ public class StockMasterGUI extends JFrame {
 	private JButton button5;
 	private String symbol = "GOOGL";
 	private String range = "1y";
+	private int sentiment = 5;
 
 	/**
 	 * constructor which sets up the frame and adds action listeners to the buttons
@@ -59,30 +60,37 @@ public class StockMasterGUI extends JFrame {
 	private void createComponents() {
 		setSize(400, 600);
 		setTitle("StockMaster");
-		
 
 		panel = new JPanel();
-		label1 = new JLabel("Enter the stock code: ");
-		label2 = new JLabel("Please select a time step: ");
+		stockLabel = new JLabel("Enter the stock code: ");
+		rangeLabel = new JLabel("Please select a time step: ");
 		textField = new JTextField(10);
 		button1 = new JButton("Search");
 		button2 = new JButton("Daily");
 		button3 = new JButton("Monthly");
 		button4 = new JButton("Quarterly");
 		button5 = new JButton("Yearly");
-		icon1 = new ImageIcon(imageLocation1);
-		emojiLabel1 = new JLabel();
-		emojiLabel1.setIcon(icon1);
+		emojiLabel = new JLabel();
 		
+		if (sentiment == 1)
+			emojiLabel.setIcon(new ImageIcon(imgLoc1));
+		else if (sentiment == 2)
+			emojiLabel.setIcon(new ImageIcon(imgLoc2));
+		else if (sentiment == 3)
+			emojiLabel.setIcon(new ImageIcon(imgLoc3));
+		else if (sentiment == 4)
+			emojiLabel.setIcon(new ImageIcon(imgLoc4));
+		else
+			emojiLabel.setIcon(new ImageIcon(imgLoc5));
 
-		panel.add(label1);
+		panel.add(stockLabel);
 		panel.add(textField);
 		panel.add(button1);
 		panel.add(button2);
 		panel.add(button3);
 		panel.add(button4);
 		panel.add(button5);
-		panel.add(emojiLabel1);
+		panel.add(emojiLabel);
 
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
