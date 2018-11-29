@@ -2,10 +2,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
+import com.google.gson.Gson;
+import java.io.IOException;
 
 /**
  * App with GUI in which user can type in a company’s stock symbol and get raw prediction of
@@ -18,6 +26,13 @@ import javax.swing.SwingUtilities;
 public class StockMasterGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private final String imageLocation1 = "pic1.png";
+	private final String imageLocation2 = "pic2.png";
+	private final String imageLocation3 = "pic3.png";
+	private final String imageLocation4 = "pic4.png";
+	private final String imageLocation5 = "pic5.png";
+	private ImageIcon icon1;
+	private JLabel emojiLabel1;
 	private JPanel panel;
 	private JLabel label1;
 	private JLabel label2;
@@ -27,6 +42,8 @@ public class StockMasterGUI extends JFrame {
 	private JButton button3;
 	private JButton button4;
 	private JButton button5;
+	private String symbol = "GOOGL";
+	private String range = "1y";
 
 	/**
 	 * constructor which sets up the frame and adds action listeners to the buttons
@@ -42,7 +59,7 @@ public class StockMasterGUI extends JFrame {
 	private void createComponents() {
 		setSize(400, 600);
 		setTitle("StockMaster");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		panel = new JPanel();
 		label1 = new JLabel("Enter the stock code: ");
@@ -50,9 +67,13 @@ public class StockMasterGUI extends JFrame {
 		textField = new JTextField(10);
 		button1 = new JButton("Search");
 		button2 = new JButton("Daily");
-		button3 = new JButton("Weekly");
-		button4 = new JButton("Monthly");
-		button5 = new JButton("Quarterly");
+		button3 = new JButton("Monthly");
+		button4 = new JButton("Quarterly");
+		button5 = new JButton("Yearly");
+		icon1 = new ImageIcon(imageLocation1);
+		emojiLabel1 = new JLabel();
+		emojiLabel1.setIcon(icon1);
+		
 
 		panel.add(label1);
 		panel.add(textField);
@@ -61,8 +82,10 @@ public class StockMasterGUI extends JFrame {
 		panel.add(button3);
 		panel.add(button4);
 		panel.add(button5);
+		panel.add(emojiLabel1);
 
 		add(panel);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
@@ -75,6 +98,7 @@ public class StockMasterGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println("Search clicked");
+			    symbol = textField.getText();
 			}
 		});
 
@@ -83,6 +107,7 @@ public class StockMasterGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println("Daily clicked");
+				range = "1d";
 			}
 		});
 
@@ -90,7 +115,8 @@ public class StockMasterGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Weekly clicked");
+				System.out.println("Monthly clicked");
+				range = "1m";
 			}
 		});
 
@@ -98,7 +124,8 @@ public class StockMasterGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Monthly clicked");
+				System.out.println("Quarterly clicked");
+				range = "3m";
 			}
 		});
 
@@ -106,11 +133,41 @@ public class StockMasterGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Quarterly clicked");
+				System.out.println("Yearly clicked");
+				range = "1y";
 			}
 		});
 	}
+	
+	private void getStockData (String city) {
+		String jsonText = "";
+		try {
+			URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + range);
+			URLConnection iexAPI = iex.openConnection();
+			BufferedReader in = new BufferedReader(
+				new InputStreamReader(
+                        iexAPI.getInputStream()));
+			String inputLine;
 
+			while ((inputLine = in.readLine()) != null) {
+				jsonText += inputLine;
+			}
+
+			in.close();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(jsonText);
+		Gson gson = new Gson();
+		DailyStockData[] stockDataArray = gson.fromJson(jsonText, DailyStockData[].class);
+
+		for (int i = 0; i < stockDataArray.length; i++) {
+			System.out.println(stockDataArray[i].getDate());
+			System.out.println(stockDataArray[i].getOpen());
+		}
+	}
+	
 	/**
 	 * main() method which creates an instance of the StockMasterGUI class
 	 * @param args
