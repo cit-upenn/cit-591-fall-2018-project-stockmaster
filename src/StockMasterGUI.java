@@ -147,7 +147,7 @@ public class StockMasterGUI extends JFrame {
 		});
 	}
 	
-	private void getStockData (String city) {
+	private void getStockData (String city) throws IOException {
 		String jsonText = "";
 		try {
 			URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + range);
