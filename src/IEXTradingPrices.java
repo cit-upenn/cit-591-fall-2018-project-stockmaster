@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.TreeMap;
 
 public class IEXTradingPrices {
     public static void main(String[] args) throws IOException {
@@ -33,14 +34,12 @@ public class IEXTradingPrices {
         Gson gson = new Gson();
         StockData[] stockDataArray = gson.fromJson(jsonText, StockData[].class);
 
+        TreeMap<String, Double> tm = new TreeMap<String, Double>();
         for (int i = 0; i < stockDataArray.length; i++) {
             System.out.println(stockDataArray[i].getDate());
             System.out.println(stockDataArray[i].getOpen());
+            tm.put(stockDataArray[i].getDate(), stockDataArray[i].getOpen());
         }
-
-        
-
-
 
     }
 }

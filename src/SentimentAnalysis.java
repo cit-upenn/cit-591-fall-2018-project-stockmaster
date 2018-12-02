@@ -14,7 +14,7 @@ public class SentimentAnalysis {
     public static void main(String[] args) {
 
         IamOptions options = new IamOptions.Builder()
-                .apiKey("APIkey")
+                .apiKey("tIC-2Mnm6ZOCrspaApqErvH5tkFFyeAoSn_2Hn7p1wRb")
                 .build();
 
         NaturalLanguageUnderstanding naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2018-03-16", options);

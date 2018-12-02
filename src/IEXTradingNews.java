@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class IEXTradingNews {
-	
+
 
     public String getNewsSummary() throws IOException {
         String jsonText = "";
