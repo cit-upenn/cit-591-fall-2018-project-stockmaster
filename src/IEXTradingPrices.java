@@ -9,7 +9,7 @@ import java.net.URLConnection;
 import java.util.TreeMap;
 
 public class IEXTradingPrices {
-    public static void main(String[] args) throws IOException {
+    public TreeMap<String, Double> getStockPrice() throws IOException {
         String jsonText = "";
 
         try {
@@ -40,6 +40,8 @@ public class IEXTradingPrices {
             System.out.println(stockDataArray[i].getOpen());
             tm.put(stockDataArray[i].getDate(), stockDataArray[i].getOpen());
         }
+        
+        return tm;
 
     }
 }
