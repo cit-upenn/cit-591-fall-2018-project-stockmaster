@@ -3,13 +3,13 @@ import java.io.IOException;
 public class StockMaster {
 
     public static void main(String[] args) {
-        IEXTradingNews news = new IEXTradingNews();
+    	SentimentAnalysis sa = new SentimentAnalysis("aapl");
         IEXTradingPrices price = new IEXTradingPrices();
 
         try {
-            String newsSummary = news.getNewsSummary();
-            price.getStockPrice("aapl", "1d");
-
+            price.getStockPrice("aapl", "3m");
+            sa.runSentimentAnalysis();
+           
 
         } catch (IOException e) {
             e.printStackTrace();
