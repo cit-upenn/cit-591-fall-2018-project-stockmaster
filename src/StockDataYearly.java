@@ -1,4 +1,4 @@
-public class DailyStockData {
+public class StockDataYearly {
     String date;
     double open;
     double high;
@@ -13,7 +13,7 @@ public class DailyStockData {
     String label;
     double changeOverTime;
 
-    public DailyStockData(String date, double open, double high, double low, double close, int volume, double unadjustedClose, int unadjustedVolume, double change, double changePercent, double vwap, String label, double changeOverTime) {
+    public StockDataYearly(String date, double open, double high, double low, double close, int volume, double unadjustedClose, int unadjustedVolume, double change, double changePercent, double vwap, String label, double changeOverTime) {
         this.date = date;
         this.open = open;
         this.high = high;

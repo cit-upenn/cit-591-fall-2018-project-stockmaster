@@ -8,7 +8,7 @@ public class StockMaster {
 
         try {
             String newsSummary = news.getNewsSummary();
-            price.getStockPrice();
+            price.getStockPrice("aapl", "1d");
 
 
         } catch (IOException e) {

@@ -168,7 +168,7 @@ public class StockMasterGUI extends JFrame {
 
 		System.out.println(jsonText);
 		Gson gson = new Gson();
-		DailyStockData[] stockDataArray = gson.fromJson(jsonText, DailyStockData[].class);
+		StockDataYearly[] stockDataArray = gson.fromJson(jsonText, StockDataYearly[].class);
 
 		for (int i = 0; i < stockDataArray.length; i++) {
 			System.out.println(stockDataArray[i].getDate());
