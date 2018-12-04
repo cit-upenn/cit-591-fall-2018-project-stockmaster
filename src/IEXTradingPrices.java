@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +8,7 @@ import java.net.URLConnection;
 import java.util.TreeMap;
 
 public class IEXTradingPrices {
+	
     public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException {
         String jsonText = "";
 
@@ -28,7 +28,6 @@ public class IEXTradingPrices {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
 
         System.out.println(jsonText);
         Gson gson = new Gson();
@@ -72,10 +71,6 @@ public class IEXTradingPrices {
             }
         	break;
         }
-        
         return tm;
-
     }
-    
-
 }

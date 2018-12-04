@@ -5,9 +5,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.An
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SentimentOptions;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
-
 import javax.management.relation.Role;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,18 +17,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SentimentAnalysis {
+
 	private String symbol;
-	
-	
-	
+
     /**
 	 * @param symbol
 	 */
 	public SentimentAnalysis(String symbol) {
 		this.symbol = symbol;
 	}
-
-
 
 	public void runSentimentAnalysis() {
 
@@ -97,7 +92,6 @@ public class SentimentAnalysis {
 			e.printStackTrace();
 		}
 
-
 		Gson gson = new Gson();
 		News[] newsArray = gson.fromJson(jsonText, News[].class);
 		ArrayList<News> newsList = new ArrayList<News>(Arrays.asList(newsArray));
@@ -111,8 +105,6 @@ public class SentimentAnalysis {
 				text += newsList.get(i).getSummary();
 			}
 		}
-
 		return text;
-
 	}
 }

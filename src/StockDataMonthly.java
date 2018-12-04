@@ -1,4 +1,3 @@
-
 public class StockDataMonthly {
     String date;
     double open;
@@ -13,7 +12,6 @@ public class StockDataMonthly {
     String label;
     double changeOverTime;
     
-
 	/**
 	 * @param date
 	 * @param open
@@ -128,9 +126,4 @@ public class StockDataMonthly {
 	public double getChangeOverTime() {
 		return changeOverTime;
 	}
-    
-    
-	
-	
-
 }

@@ -3,7 +3,6 @@ import tech.tablesaw.api.DateColumn;
 import tech.tablesaw.api.DoubleColumn;
 import tech.tablesaw.api.NumberColumn;
 import tech.tablesaw.columns.Column;
-
 import static sun.misc.MessageUtils.out;
 import static tech.tablesaw.api.TextColumn.create;
 
@@ -15,6 +14,4 @@ public class Graph {
         NumberColumn column1 = DoubleColumn.create("my numbers", values);
         out(column1.print());
     }
-
-
 }

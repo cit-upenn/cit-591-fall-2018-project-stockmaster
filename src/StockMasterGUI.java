@@ -45,6 +45,9 @@ public class StockMasterGUI extends JFrame {
 	private String symbol = "GOOGL";
 	private String range = "1y";
 	private int sentiment = 5;
+    //try aapl
+    private SentimentAnalysis sa = new SentimentAnalysis(symbol);
+    private IEXTradingPrices price = new IEXTradingPrices();
 
 	/**
 	 * constructor which sets up the frame and adds action listeners to the buttons
@@ -107,6 +110,12 @@ public class StockMasterGUI extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Search clicked");
 			    symbol = textField.getText();
+			    try {
+		            price.getStockPrice(symbol, range);
+		            sa.runSentimentAnalysis();
+		        } catch (IOException excep) {
+		        	excep.printStackTrace();
+		        }
 			}
 		});
 
@@ -116,6 +125,12 @@ public class StockMasterGUI extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Daily clicked");
 				range = "1d";
+				try {
+		            price.getStockPrice(symbol, range);
+		            sa.runSentimentAnalysis();
+		        } catch (IOException excep) {
+		        	excep.printStackTrace();
+		        }
 			}
 		});
 
@@ -125,6 +140,12 @@ public class StockMasterGUI extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Monthly clicked");
 				range = "1m";
+				try {
+		            price.getStockPrice(symbol, range);
+		            sa.runSentimentAnalysis();
+		        } catch (IOException excep) {
+		        	excep.printStackTrace();
+		        }
 			}
 		});
 
@@ -134,6 +155,12 @@ public class StockMasterGUI extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Quarterly clicked");
 				range = "3m";
+				try {
+		            price.getStockPrice(symbol, range);
+		            sa.runSentimentAnalysis();
+		        } catch (IOException excep) {
+		        	excep.printStackTrace();
+		        }
 			}
 		});
 
@@ -143,6 +170,12 @@ public class StockMasterGUI extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Yearly clicked");
 				range = "1y";
+				try {
+		            price.getStockPrice(symbol, range);
+		            sa.runSentimentAnalysis();
+		        } catch (IOException excep) {
+		        	excep.printStackTrace();
+		        }
 			}
 		});
 	}
