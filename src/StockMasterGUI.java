@@ -44,7 +44,7 @@ public class StockMasterGUI extends JFrame {
 	private JButton button5;
 	private String symbol = "GOOGL";
 	private String range = "1y";
-	private int sentiment = 5;
+	private int sentiment = 0;
     //try aapl
     private SentimentAnalysis sa = new SentimentAnalysis(symbol);
     private IEXTradingPrices price = new IEXTradingPrices();
@@ -75,13 +75,13 @@ public class StockMasterGUI extends JFrame {
 		button5 = new JButton("Yearly");
 		emojiLabel = new JLabel();
 		
-		if (sentiment == 1)
+		if (sentiment > 0.67)
 			emojiLabel.setIcon(new ImageIcon(imgLoc1));
-		else if (sentiment == 2)
+		else if (sentiment > 0.33)
 			emojiLabel.setIcon(new ImageIcon(imgLoc2));
-		else if (sentiment == 3)
+		else if (sentiment > -0.33)
 			emojiLabel.setIcon(new ImageIcon(imgLoc3));
-		else if (sentiment == 4)
+		else if (sentiment > -0.67)
 			emojiLabel.setIcon(new ImageIcon(imgLoc4));
 		else
 			emojiLabel.setIcon(new ImageIcon(imgLoc5));
@@ -112,7 +112,8 @@ public class StockMasterGUI extends JFrame {
 			    symbol = textField.getText();
 			    try {
 		            price.getStockPrice(symbol, range);
-		            sa.runSentimentAnalysis();
+		            sentiment = sa.runSentimentAnalysis();
+		            createComponents();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
 		        }
@@ -127,7 +128,7 @@ public class StockMasterGUI extends JFrame {
 				range = "1d";
 				try {
 		            price.getStockPrice(symbol, range);
-		            sa.runSentimentAnalysis();
+		            sentiment = sa.runSentimentAnalysis();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
 		        }
@@ -142,7 +143,7 @@ public class StockMasterGUI extends JFrame {
 				range = "1m";
 				try {
 		            price.getStockPrice(symbol, range);
-		            sa.runSentimentAnalysis();
+		            sentiment = sa.runSentimentAnalysis();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
 		        }
@@ -157,7 +158,7 @@ public class StockMasterGUI extends JFrame {
 				range = "3m";
 				try {
 		            price.getStockPrice(symbol, range);
-		            sa.runSentimentAnalysis();
+		            sentiment = sa.runSentimentAnalysis();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
 		        }
@@ -172,7 +173,7 @@ public class StockMasterGUI extends JFrame {
 				range = "1y";
 				try {
 		            price.getStockPrice(symbol, range);
-		            sa.runSentimentAnalysis();
+		            sentiment = sa.runSentimentAnalysis();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
 		        }
