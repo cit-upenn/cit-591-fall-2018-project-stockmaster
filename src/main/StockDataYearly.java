@@ -1,3 +1,5 @@
+package main;
+
 public class StockDataYearly {
     String date;
     double open;

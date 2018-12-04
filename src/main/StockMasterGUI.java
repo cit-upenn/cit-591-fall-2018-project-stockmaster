@@ -1,7 +1,10 @@
+package main;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -12,6 +15,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
+
+import org.knowm.xchart.SwingWrapper;
+
 import com.google.gson.Gson;
 import java.io.IOException;
 
@@ -44,7 +50,8 @@ public class StockMasterGUI extends JFrame {
 	private JButton button5;
 	private String symbol = "GOOGL";
 	private String range = "1y";
-	private int sentiment = 0;
+	private double sentiment = 0;
+	private JPanel graphPanel;
     //try aapl
     private SentimentAnalysis sa = new SentimentAnalysis(symbol);
     private IEXTradingPrices price = new IEXTradingPrices();
@@ -74,6 +81,16 @@ public class StockMasterGUI extends JFrame {
 		button4 = new JButton("Quarterly");
 		button5 = new JButton("Yearly");
 		emojiLabel = new JLabel();
+		graphPanel = new JPanel();
+		
+		
+		DataGraph dg = new DataGraph();
+		try {
+			graphPanel = dg.drawGraph("aapl", "ytd");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (sentiment > 0.67)
 			emojiLabel.setIcon(new ImageIcon(imgLoc1));
@@ -94,8 +111,9 @@ public class StockMasterGUI extends JFrame {
 		panel.add(button4);
 		panel.add(button5);
 		panel.add(emojiLabel);
-
+		
 		add(panel);
+		add(graphPanel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}

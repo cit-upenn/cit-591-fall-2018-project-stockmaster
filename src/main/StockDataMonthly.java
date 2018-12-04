@@ -1,3 +1,5 @@
+package main;
+
 public class StockDataMonthly {
     String date;
     double open;

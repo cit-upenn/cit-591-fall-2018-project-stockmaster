@@ -1,3 +1,5 @@
+package main;
+
 public class StockDataDaily {
     String date;
     String minute;
