@@ -27,7 +27,7 @@ public class SentimentAnalysis {
 		this.symbol = symbol;
 	}
 
-	public void runSentimentAnalysis() {
+	public double runSentimentAnalysis() {
 
         IamOptions options = new IamOptions.Builder()
                 .apiKey("tIC-2Mnm6ZOCrspaApqErvH5tkFFyeAoSn_2Hn7p1wRb")
@@ -70,6 +70,7 @@ public class SentimentAnalysis {
         
         System.out.println(label);
         System.out.println(score);
+	return score;
     }
 	
 	public String getNewsSummary() throws IOException {
