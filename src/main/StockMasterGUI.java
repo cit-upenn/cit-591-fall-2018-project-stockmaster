@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingUtilities;
 
+import org.json.JSONException;
 import org.knowm.xchart.SwingWrapper;
 
 import com.google.gson.Gson;
@@ -134,7 +135,10 @@ public class StockMasterGUI extends JFrame {
 		            createComponents();
 		        } catch (IOException excep) {
 		        	excep.printStackTrace();
+		        } catch (JSONException e1) {
+		        	e1.printStackTrace();
 		        }
+			    
 			}
 		});
 

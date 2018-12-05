@@ -9,9 +9,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.TreeMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class IEXTradingPrices {
 	
-    public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException {
+    public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException, JSONException {
         String jsonText = "";
 
         try {
@@ -32,44 +36,41 @@ public class IEXTradingPrices {
         }
 
         //System.out.println(jsonText);
-        Gson gson = new Gson();
-        StockDataYearly[] stockDataYTD = null;
-        StockDataDaily[] stockData1D = null; 
-        StockDataMonthly[] stockData1M = null;
-        StockDataMonthly[] stockData3M = null;
+        JSONArray ja = new JSONArray(jsonText);
+
         TreeMap<String, Double> tm = new TreeMap<String, Double>();
         
         switch (range) {
         case "ytd":
-        	stockDataYTD = gson.fromJson(jsonText, StockDataYearly[].class);
-        	for (int i = 0; i < stockDataYTD.length; i++) {
-                //System.out.println(stockDataYTD[i].getDate());
-                //System.out.println(stockDataYTD[i].getOpen());
-                tm.put(stockDataYTD[i].getDate(), stockDataYTD[i].getOpen());
+        	for (int i = 0; i < ja.length(); i++) {
+        		JSONObject object = ja.getJSONObject(i);
+        		String date = object.getString("date");
+        		double open = object.getDouble("open");
+        		tm.put(date, open);
             }
         	break;
         case "1d":
-        	stockData1D = gson.fromJson(jsonText, StockDataDaily[].class);
-        	for (int i = 0; i < stockData1D.length; i++) {
-                //System.out.println(stockData1D[i].getMinute());
-                //System.out.println(stockData1D[i].getOpen());
-                tm.put(stockData1D[i].getMinute(), stockData1D[i].getOpen());
+        	for (int i = 0; i < ja.length(); i++) {
+        		JSONObject object = ja.getJSONObject(i);
+        		String date = object.getString("minute");
+        		double open = object.getDouble("open");
+        		tm.put(date, open);
             }
         	break;
         case "1m": 
-        	stockData1M = gson.fromJson(jsonText, StockDataMonthly[].class);
-        	for (int i = 0; i < stockData1M.length; i++) {
-                //System.out.println(stockData1M[i].getDate());
-                //System.out.println(stockData1M[i].getOpen());
-                tm.put(stockData1M[i].getDate(), stockData1M[i].getOpen());
+        	for (int i = 0; i < ja.length(); i++) {
+        		JSONObject object = ja.getJSONObject(i);
+        		String date = object.getString("date");
+        		double open = object.getDouble("open");
+        		tm.put(date, open);
             }
         	break;
         case "3m":
-        	stockData3M = gson.fromJson(jsonText, StockDataMonthly[].class);
-        	for (int i = 0; i < stockData3M.length; i++) {
-                //System.out.println(stockData3M[i].getDate());
-                //System.out.println(stockData3M[i].getOpen());
-                tm.put(stockData3M[i].getDate(), stockData3M[i].getOpen());
+        	for (int i = 0; i < ja.length(); i++) {
+        		JSONObject object = ja.getJSONObject(i);
+        		String date = object.getString("date");
+        		double open = object.getDouble("open");
+        		tm.put(date, open);
             }
         	break;
         }
