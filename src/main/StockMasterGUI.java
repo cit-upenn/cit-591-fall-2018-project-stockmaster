@@ -18,11 +18,9 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 
 /**
- * An app which gathers and graphs stock data based on user-specified time range, and runs a sentimental analysis
- *   on the news surrounding that company and displays an emoji based on the sentiment of the news
+ * The GUI/front end of our app with which the user can interact. The GUI is integrated with the back ends to take user inputs,
+ *   perform the corresponding tasks and display the results(emoji + stock chart).
  * @author Zhenghua (Calvin) Chen
- * @author Shiqing (Jill) Liu
- * @author Qiongying (Jennifer) Jiang
  * 
  */
 public class StockMasterGUI extends JFrame {
@@ -41,16 +39,22 @@ public class StockMasterGUI extends JFrame {
 	private JButton yearly;
 	private JLabel emoji;
 	private JLabel error;
-	private JPanel graph;
+	private JPanel chart;
 	protected String stock = "";
 	protected String time = "ytd";
 	private double sentiment = 0;
 
+	/**
+	 * Constructor of the StockMasterGUI class which sets up the frame and adds action listeners to the buttons
+	 */
 	public StockMasterGUI() {
 		createFrame();
 		addListeners();
 	}
 	
+	/**
+	 * Method for setting up the frame
+	 */
 	private void createFrame() {
 		setTitle("StockMaster");
 		setSize(800, 770);
@@ -67,8 +71,8 @@ public class StockMasterGUI extends JFrame {
 		yearly = new JButton("Yearly");
 		emoji = new JLabel();
 		error = new JLabel();
-		graph = new JPanel();
-		graph.setPreferredSize(new Dimension(800, 700));
+		chart = new JPanel();
+		chart.setPreferredSize(new Dimension(800, 700));
 		
 		panel.add(askStock);
 		panel.add(textField);
@@ -79,20 +83,25 @@ public class StockMasterGUI extends JFrame {
 		panel.add(yearly);
 		panel.add(emoji);
 		panel.add(error);
-		panel.add(graph);
+		panel.add(chart);
 		add(panel);
 		setVisible(true);
 	}
 	
+	/**
+	 * Method for adding action listeners to the buttons
+	 */
 	private void addListeners() {
+		// Adding an action listener to the search button
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Search clicked!");
 				stock = textField.getText();
 				time = "ytd";
+				chart.removeAll();
 				SentimentAnalysis stockNews = new SentimentAnalysis(stock);
-				graph.removeAll();
+				DataGraph stockChart = new DataGraph();
 				try {
 					sentiment = stockNews.runSentimentAnalysis();
 					if (sentiment > 0.67)
@@ -105,16 +114,15 @@ public class StockMasterGUI extends JFrame {
 						emoji.setIcon(new ImageIcon(imgLoc4));
 					else
 						emoji.setIcon(new ImageIcon(imgLoc5));
-					DataGraph stockGraph = new DataGraph();
 					try {
 						error.setText("");
-						graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
-					} catch (JSONException e1) {
-						//e1.printStackTrace();
+						chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+					} catch (JSONException eJSON) {
+						//eJSON.printStackTrace();
 						error.setText("Data not available.");
 					}
-				} catch (IOException e1) {
-					//e1.printStackTrace();
+				} catch (IOException eIO) {
+					//eIO.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
 				}
@@ -122,79 +130,87 @@ public class StockMasterGUI extends JFrame {
 			}
 		});
 		
+		// Adding an action listener to the daily button
 		daily.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Daily clicked!");
 				time = "1d";
-				DataGraph stockGraph = new DataGraph();
-				graph.removeAll();
+				chart.removeAll();
+				DataGraph stockChart = new DataGraph();
 				try {
 					error.setText("");
-					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
-				} catch (IOException | JSONException e1) {
-					e1.printStackTrace();
-					error.setText("Data not available");
+					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+				} catch (IOException | JSONException eIOorJSON) {
+					//eIOorJSON.printStackTrace();
+					error.setText("Data not available.");
 				}
 				revalidate();
 			}
 		});
 		
+		// Adding an action listener to the monthly button
 		monthly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Monthly clicked!");
 				time = "1m";
-				DataGraph stockGraph = new DataGraph();
-				graph.removeAll();
+				chart.removeAll();
+				DataGraph stockChart = new DataGraph();
 				try {
 					error.setText("");
-					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
-				} catch (IOException | JSONException e1) {
-					//e1.printStackTrace();
-					error.setText("Data not available");
+					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+				} catch (IOException | JSONException eIOorJSON) {
+					//eIOorJSON.printStackTrace();
+					error.setText("Data not available.");
 				}
 				revalidate();
 			}
 		});
 		
+		// Adding an action listener to the quarterly button
 		quarterly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Quarterly clicked!");
 				time = "3m";
-				DataGraph stockGraph = new DataGraph();
-				graph.removeAll();
+				chart.removeAll();
+				DataGraph stockChart = new DataGraph();
 				try {
 					error.setText("");
-					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
-				} catch (IOException | JSONException e1) {
-					//e1.printStackTrace();
-					error.setText("Data not available");
+					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+				} catch (IOException | JSONException eIOorJSON) {
+					//eIOorJSON.printStackTrace();
+					error.setText("Data not available.");
 				}
 				revalidate();
 			}
 		});
 		
+		// Adding an action listener to the yearly button
 		yearly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Yearly clicked!");
 				time = "ytd";
-				DataGraph stockGraph = new DataGraph();
-				graph.removeAll();
+				chart.removeAll();
+				DataGraph stockChart = new DataGraph();
 				try {
 					error.setText("");
-					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
-				} catch (IOException | JSONException e1) {
-					//e1.printStackTrace();
-					error.setText("Data not available");
+					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+				} catch (IOException | JSONException eIOorJSON) {
+					//eIOorJSON.printStackTrace();
+					error.setText("Data not available.");
 				}
 				revalidate();
 			}
 		});
 	}
 	
+	/**
+	 * The main() method of the StockMasterGUI class which creates a StockMasterGUI object
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
