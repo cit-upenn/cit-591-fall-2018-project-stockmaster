@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class IEXTradingPrices {
+public class StockData {
 	
     public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException, JSONException {
         String jsonText = "";

@@ -18,18 +18,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SentimentAnalysis {
+public class NewsAnalysis {
 
 	private String symbol;
 
     /**
 	 * @param symbol
 	 */
-	public SentimentAnalysis(String symbol) {
+	public NewsAnalysis(String symbol) {
 		this.symbol = symbol;
 	}
 
-	public double runSentimentAnalysis() throws IOException {
+	public double getSentiment() throws IOException {
 
         IamOptions options = new IamOptions.Builder()
                 .apiKey("tIC-2Mnm6ZOCrspaApqErvH5tkFFyeAoSn_2Hn7p1wRb")

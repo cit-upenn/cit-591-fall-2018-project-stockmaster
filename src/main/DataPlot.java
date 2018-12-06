@@ -27,10 +27,10 @@ import org.knowm.xchart.style.colors.XChartSeriesColors;
 import org.knowm.xchart.style.lines.SeriesLines;
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
-public class DataGraph{
+public class DataPlot{
 	
-    public XYChart drawGraph(String symbol, String timeRange) throws IOException, JSONException {
-    	IEXTradingPrices stockdata = new IEXTradingPrices();
+    public XYChart getLongTermChart(String symbol, String timeRange) throws IOException, JSONException {
+    	StockData stockdata = new StockData();
         int[] xData1 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         int[] xData2 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         int[] xData3 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];

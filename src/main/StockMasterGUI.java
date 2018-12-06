@@ -100,10 +100,10 @@ public class StockMasterGUI extends JFrame {
 				stock = textField.getText();
 				time = "ytd";
 				chart.removeAll();
-				SentimentAnalysis stockNews = new SentimentAnalysis(stock);
-				DataGraph stockChart = new DataGraph();
+				NewsAnalysis stockNews = new NewsAnalysis(stock);
+				DataPlot stockChart = new DataPlot();
 				try {
-					sentiment = stockNews.runSentimentAnalysis();
+					sentiment = stockNews.getSentiment();
 					if (sentiment > 0.67)
 						emoji.setIcon(new ImageIcon(imgLoc1));
 					else if (sentiment > 0.33)
@@ -116,7 +116,7 @@ public class StockMasterGUI extends JFrame {
 						emoji.setIcon(new ImageIcon(imgLoc5));
 					try {
 						error.setText("");
-						chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+						chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
 					} catch (JSONException eJSON) {
 						//eJSON.printStackTrace();
 						error.setText("Data not available.");
@@ -137,10 +137,10 @@ public class StockMasterGUI extends JFrame {
 				//System.out.println("Daily clicked!");
 				time = "1d";
 				chart.removeAll();
-				DataGraph stockChart = new DataGraph();
+				DataPlot stockChart = new DataPlot();
 				try {
 					error.setText("");
-					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
 				} catch (IOException | JSONException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
@@ -156,10 +156,10 @@ public class StockMasterGUI extends JFrame {
 				//System.out.println("Monthly clicked!");
 				time = "1m";
 				chart.removeAll();
-				DataGraph stockChart = new DataGraph();
+				DataPlot stockChart = new DataPlot();
 				try {
 					error.setText("");
-					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
 				} catch (IOException | JSONException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
@@ -175,10 +175,10 @@ public class StockMasterGUI extends JFrame {
 				//System.out.println("Quarterly clicked!");
 				time = "3m";
 				chart.removeAll();
-				DataGraph stockChart = new DataGraph();
+				DataPlot stockChart = new DataPlot();
 				try {
 					error.setText("");
-					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
 				} catch (IOException | JSONException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
@@ -194,10 +194,10 @@ public class StockMasterGUI extends JFrame {
 				//System.out.println("Yearly clicked!");
 				time = "ytd";
 				chart.removeAll();
-				DataGraph stockChart = new DataGraph();
+				DataPlot stockChart = new DataPlot();
 				try {
 					error.setText("");
-					chart.add(new XChartPanel<XYChart>(stockChart.drawGraph(stock, time)));
+					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
 				} catch (IOException | JSONException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
