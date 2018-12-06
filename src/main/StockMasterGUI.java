@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,10 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import org.json.JSONException;
+import org.knowm.xchart.XChartPanel;
+
 /**
- * 
+ * An app which gathers and graphs stock data based on user-specified time range, and runs a sentimental analysis
+ *   on the news surrounding that company and displays an emoji based on the sentiment of the news
  * @author Zhenghua (Calvin) Chen
- *
+ * @author Shiqing (Jill) Liu
+ * @author Qiongying (Jennifer) Jiang
+ * 
  */
 public class StockMasterGUI extends JFrame {
 	
@@ -32,8 +39,9 @@ public class StockMasterGUI extends JFrame {
 	private JButton yearly;
 	private JLabel error;
 	private JLabel emoji;
+	private JPanel graph;
 	protected String stock = "aapl";
-	protected String time = "1y";
+	protected String time = "ytd";
 	private double sentiment = 0;
 
 	public StockMasterGUI() {
@@ -43,7 +51,7 @@ public class StockMasterGUI extends JFrame {
 	
 	private void createFrame() {
 		setTitle("StockMaster");
-		setSize(400, 600);
+		setSize(800, 800);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -57,6 +65,8 @@ public class StockMasterGUI extends JFrame {
 		yearly = new JButton("Yearly");
 		error = new JLabel();
 		emoji = new JLabel();
+		graph = new JPanel();
+		graph.setPreferredSize(new Dimension(800, 700));
 		
 		panel.add(askStock);
 		panel.add(textField);
@@ -67,6 +77,7 @@ public class StockMasterGUI extends JFrame {
 		panel.add(yearly);
 		panel.add(error);
 		panel.add(emoji);
+		panel.add(graph);
 		add(panel);
 		setVisible(true);
 	}
@@ -76,7 +87,8 @@ public class StockMasterGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Search clicked!");
-				SentimentAnalysis stockNews = new SentimentAnalysis(textField.getText());
+				stock = textField.getText();
+				SentimentAnalysis stockNews = new SentimentAnalysis(stock);
 				try {
 					error.setText("");
 					sentiment = stockNews.runSentimentAnalysis();
@@ -90,8 +102,11 @@ public class StockMasterGUI extends JFrame {
 						emoji.setIcon(new ImageIcon(imgLoc4));
 					else
 						emoji.setIcon(new ImageIcon(imgLoc5));
+					DataGraph stockGraph = new DataGraph();
+					graph.removeAll();
+					graph.add(new XChartPanel(stockGraph.drawGraph(stock, time)));
 					revalidate();
-				} catch (IOException e1) {
+				} catch (IOException | JSONException e1) {
 					e1.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
@@ -128,7 +143,7 @@ public class StockMasterGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Yearly clicked!");
-				time = "1y";
+				time = "ytd";
 			}
 		});
 	}
