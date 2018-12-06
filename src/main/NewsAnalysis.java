@@ -68,7 +68,7 @@ public class NewsAnalysis {
 		AnalysisResults response = naturalLanguageUnderstanding
 				.analyze(parameters)
 				.execute();
-		String label = response.getSentiment().getDocument().getLabel();
+		//String label = response.getSentiment().getDocument().getLabel();
 		double score = response.getSentiment().getDocument().getScore();
 		//System.out.println(label);
 		//System.out.println(score);

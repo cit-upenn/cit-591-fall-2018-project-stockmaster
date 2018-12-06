@@ -32,22 +32,22 @@ public class DataPlot{
 	
 	/**
 	 * 
-	 * @param symbol
-	 * @param timeRange
+	 * @param stock
+	 * @param time
 	 * @return
 	 * @throws IOException
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-    public XYChart getLongTermChart(String symbol, String timeRange) throws IOException, JSONException, ParseException {
+    public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException {
     	StockData stockdata = new StockData();
-        int[] xData1 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        int[] xData2 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        int[] xData3 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        double[] yData = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        int size = stockdata.getStockPrice(symbol, timeRange).keySet().size();        
+        int[] xData1 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
+        int[] xData2 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
+        int[] xData3 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
+        double[] yData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
+        int size = stockdata.getStockPrice(stock, time).keySet().size();        
         int i = 0;
-        for (String key : stockdata.getStockPrice(symbol, timeRange).keySet()) {
+        for (String key : stockdata.getStockPrice(stock, time).keySet()) {
         	String[] parts = key.split("-");
         	String part1 = parts[0]; 
         	String part2 = parts[1]; 
@@ -55,7 +55,7 @@ public class DataPlot{
         	int d1 = Integer.parseInt(part1);
         	int d2 = Integer.parseInt(part2);
         	int d3 = Integer.parseInt(part3);
-        	double price = stockdata.getStockPrice(symbol, timeRange).get(key);
+        	double price = stockdata.getStockPrice(stock, time).get(key);
         	xData1[i] = d1;
         	xData2[i] = d2;
         	xData3[i] = d3;
@@ -107,27 +107,27 @@ public class DataPlot{
     
     /**
      * For daily prices
-     * @param symbol
-     * @param timeRange
+     * @param stock
+     * @param time
      * @return
      * @throws IOException
      * @throws JSONException
      */
-    public XYChart getShortTermChart(String symbol, String timeRange) throws IOException, JSONException {
+    public XYChart getShortTermChart(String stock, String time) throws IOException, JSONException {
     	StockData stockdata = new StockData();
         //double[] xData1 = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         //double[] xData2 = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        double[] yData = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        double[] xData = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        int size  = stockdata.getStockPrice(symbol, timeRange).keySet().size();        
+        double[] yData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
+        double[] xData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
+        //int size  = stockdata.getStockPrice(stock, time).keySet().size();        
         int i = 0;
-        for (String key : stockdata.getStockPrice(symbol, timeRange).keySet()) {
+        for (String key : stockdata.getStockPrice(stock, time).keySet()) {
         	String[] parts = key.split(":");
         	String part1 = parts[0];
         	String part2 = parts[1];
         	double d1 = Double.parseDouble(part1);
         	double d2 = Double.parseDouble(part2);
-        	double price = stockdata.getStockPrice(symbol, timeRange).get(key);
+        	double price = stockdata.getStockPrice(stock, time).get(key);
         	//xData1[i]= d1;
         	//xData2[i]= d2;
         	xData[i] = d1 + d2 / 60;  	

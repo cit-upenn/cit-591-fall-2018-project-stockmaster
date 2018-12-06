@@ -20,15 +20,15 @@ public class StockData {
 	
 	/**
 	 * 
-	 * @param symbol
-	 * @param range
+	 * @param stock
+	 * @param time
 	 * @return
 	 * @throws IOException
 	 * @throws JSONException
 	 */
-    public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException, JSONException {
+    public TreeMap<String, Double> getStockPrice(String stock, String time) throws IOException, JSONException {
         String jsonText = "";
-        URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + range);
+        URL iex = new URL("https://api.iextrading.com/1.0/stock/" + stock + "/chart/" + time);
         URLConnection iexAPI = iex.openConnection();
         BufferedReader in = new BufferedReader(
         		new InputStreamReader(
@@ -41,7 +41,7 @@ public class StockData {
         //System.out.println(jsonText);
         JSONArray ja = new JSONArray(jsonText);
         TreeMap<String, Double> tm = new TreeMap<String, Double>();
-        switch (range) {
+        switch (time) {
         case "ytd":
         	for (int i = 0; i < ja.length(); i += 12) {
         		JSONObject object = ja.getJSONObject(i);
@@ -51,7 +51,7 @@ public class StockData {
             }
         	break;
         case "1d":
-        	for (int i = 0; i < ja.length(); i += 20) {
+        	for (int i = 0; i < ja.length(); i += 24) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("minute");
         		double open = object.getDouble("open");
@@ -59,7 +59,7 @@ public class StockData {
             }
         	break;
         case "1m": 
-        	for (int i = 0; i < ja.length(); i += 1) {
+        	for (int i = 0; i < ja.length(); i++) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("date");
         		double open = object.getDouble("open");
