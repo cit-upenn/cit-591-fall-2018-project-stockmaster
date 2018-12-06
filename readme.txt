@@ -1,4 +1,6 @@
 Project name: StockMaster
-Description: App with GUI in which user can type in a company’s stock symbol and get the chart for its stock and an emoji
-               which reflects sentiment of news surrounding that company
-Authors: Zhenghua (Calvin) Chen, Shiqing (Jill) Liu, Qiongying(Jennifer) Jiang
+Description: an app which gathers and graphs stock data based on user-specified time range and runs a sentimental analysis on
+               the news surrounding that company and displays an emoji based on the sentiment of the news
+Authors: Zhenghua (Calvin) Chen
+         Shiqing (Jill) Liu
+         Qiongying(Jennifer) Jiang
