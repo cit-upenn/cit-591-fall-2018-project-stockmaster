@@ -14,17 +14,27 @@ import main.NewsAnalysis;
  * You should create a behavior test that tests for a CollectionUnderflowException when
  * attempting to remove more objects than is in the Collection.
  */
-
 public class NewsAnalysisTest {
 
 	NewsAnalysis newsAnalysis;
+	
+	//Test purpose: tests basic functionality
+	@Test
+	public void testReplaceAllDigits1() {
+		newsAnalysis = new NewsAnalysis("aapl");
+		//newsAnalysis.setMyString("Dog456Dog");
+		//newsAnalysis.replaceAllDigits('X');
+		//assertEquals("DogXXXDog", newsAnalysis.getMyString());
+	}
   
-	//Test Purpose: Test CollectionUnderflowException is thrown with get method
+	//Test purpose: test CollectionUnderflowException is thrown with get method
     @Test
-	public void testGetThrowsExpectedException() {
+	public void testIOException() {
     	newsAnalysis = new NewsAnalysis("aapl");
 	    Assertions.assertThrows(IOException.class, () -> {
-	    	//stockMasterGUI.
+	    	//newsAnalysis.add("Hello");
+	    	//newsAnalysis.add(5);
+	    	//newsAnalysis.get(3);
 	    });
 	}
 }

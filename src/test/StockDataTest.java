@@ -3,6 +3,7 @@ package test;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.StockData;
@@ -14,17 +15,32 @@ import main.StockData;
  * You should create a behavior test that tests for a CollectionUnderflowException when
  * attempting to remove more objects than is in the Collection.
  */
-
 public class StockDataTest {
 
 	StockData stockData;
+	
+	@BeforeEach
+	public void setUp() {
+		stockData = new StockData();
+	}
+	
+	//Test purpose: tests basic functionality
+	@Test
+	public void testReplaceAllDigits1() {
+		stockData = new StockData();
+		//stockData.setMyString("Dog456Dog");
+		//stockData.replaceAllDigits('X');
+		//assertEquals("DogXXXDog", stockData.getMyString());
+	}
   
-	//Test Purpose: Test CollectionUnderflowException is thrown with get method
+	//Test purpose: test CollectionUnderflowException is thrown with get method
     @Test
-	public void testGetThrowsExpectedException() {
+	public void testIOException() {
     	stockData = new StockData();
 	    Assertions.assertThrows(IOException.class, () -> {
-	    	//stockMasterGUI.
+	    	//stockData.add("Hello");
+	    	//stockData.add(5);
+	    	//stockData.get(3);
 	    });
 	}
 }

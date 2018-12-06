@@ -26,23 +26,94 @@ import org.knowm.xchart.XYChart;
  */
 public class StockMasterGUI extends JFrame {
 	
+	/**
+	 * The serial version ID of the app
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * A string representing the 1st image
+	 */
 	private final String imgLoc1 = "pic1.png";
+	
+	/**
+	 * A string representing the 2nd image
+	 */
 	private final String imgLoc2 = "pic2.png";
+	
+	/**
+	 * A string representing the 3rd image
+	 */
 	private final String imgLoc3 = "pic3.png";
+	
+	/**
+	 * A string representing the 4th image
+	 */
 	private final String imgLoc4 = "pic4.png";
+	
+	/**
+	 * A string representing the 5th image
+	 */
 	private final String imgLoc5 = "pic5.png";
+	
+	/**
+	 * A text box into which the user can type in the ticker symbol of a company
+	 */
 	private JTextField textField;
+	
+	/**
+	 * A button to trigger the search
+	 */
 	private JButton search;
+	
+	/**
+	 * A button to switch to the daily stock chart
+	 */
 	private JButton daily;
+	
+	/**
+	 * A button to switch to the monthly stock chart
+	 */
 	private JButton monthly;
+	
+	/**
+	 * A button to switch to the quarterly stock chart
+	 */
 	private JButton quarterly;
+	
+	/**
+	 * A button to switch to the yearly stock chart
+	 */
 	private JButton yearly;
+	
+	/**
+	 * A label to show emoji
+	 */
 	private JLabel emoji;
+	
+	/**
+	 * A label to show the error message
+	 */
 	private JLabel error;
+	
+	/**
+	 * A panel to which the stock chart will be added
+	 */
 	private JPanel chart;
-	protected String stock = "";
-	protected String time = "ytd";
+	
+	/**
+	 * A string representing the ticker symbol of the company
+	 */
+	private String stock = "";
+	
+	/**
+	 * A string representing the time range of the stock chart
+	 */
+	private String time = "ytd";
+	
+	/**
+	 * A value measuring the sentiment of news surrounding the given company
+	 */
 	private double sentiment = 0;
 
 	/**
@@ -57,11 +128,13 @@ public class StockMasterGUI extends JFrame {
 	 * Method for setting up the frame
 	 */
 	private void createFrame() {
+		// Setting up the frame
 		setTitle("StockMaster");
 		setSize(800, 770);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// Creating/initializing components
 		JPanel panel = new JPanel();
 		JLabel askStock = new JLabel("Enter the stock code:");
 		textField = new JTextField(10);
@@ -75,6 +148,7 @@ public class StockMasterGUI extends JFrame {
 		chart = new JPanel();
 		chart.setPreferredSize(new Dimension(800, 700));
 		
+		// Adding components to the frame
 		panel.add(askStock);
 		panel.add(textField);
 		panel.add(search);
@@ -118,16 +192,14 @@ public class StockMasterGUI extends JFrame {
 					try {
 						error.setText("");
 						chart.add(new XChartPanel<XYChart>(dataPlot.getLongTermChart(stock, time)));
-					} catch (JSONException | ParseException eJSON) {
-						//eJSON.printStackTrace();
+					} catch (JSONException | ParseException plotExcep) {
+						//plotExcep.printStackTrace();
 						error.setText("Data not available.");
 					}
-				} catch (IOException eIO) {
-					//eIO.printStackTrace();
+				} catch (IOException stockExcep) {
+					//stockExcep.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
-				} catch (JSONException eJS) {
-					error.setText("Parse failed");
 				}
 				revalidate();
 			}
@@ -144,8 +216,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException eIOorJSON) {
-					//eIOorJSON.printStackTrace();
+				} catch (IOException | JSONException | ParseException combinedExcep) {
+					//combinedExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -163,8 +235,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException eIOorJSON) {
-					//eIOorJSON.printStackTrace();
+				} catch (IOException | JSONException | ParseException combinedExcep) {
+					//combinedExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -182,8 +254,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException eIOorJSON) {
-					//eIOorJSON.printStackTrace();
+				} catch (IOException | JSONException | ParseException combinedExcep) {
+					//combinedExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -201,8 +273,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException eIOorJSON) {
-					//eIOorJSON.printStackTrace();
+				} catch (IOException | JSONException | ParseException combinedExcep) {
+					//combinedExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -217,6 +289,7 @@ public class StockMasterGUI extends JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				@SuppressWarnings("unused")
 				StockMasterGUI stockMasterGUI = new StockMasterGUI();
 			}
 		});
