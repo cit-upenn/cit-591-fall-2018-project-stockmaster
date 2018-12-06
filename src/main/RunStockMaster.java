@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-
 import org.json.JSONException;
 
 public class RunStockMaster {
@@ -17,5 +16,4 @@ public class RunStockMaster {
 			e.printStackTrace();
 		}
 	}
-
 }

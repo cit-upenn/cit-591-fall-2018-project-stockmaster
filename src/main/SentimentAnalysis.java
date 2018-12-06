@@ -29,7 +29,7 @@ public class SentimentAnalysis {
 		this.symbol = symbol;
 	}
 
-	public double runSentimentAnalysis() {
+	public double runSentimentAnalysis() throws IOException {
 
         IamOptions options = new IamOptions.Builder()
                 .apiKey("tIC-2Mnm6ZOCrspaApqErvH5tkFFyeAoSn_2Hn7p1wRb")
@@ -40,12 +40,8 @@ public class SentimentAnalysis {
 
 //        IEXTradingNews news = new IEXTradingNews();
         String text = "";
-        try {
             text = this.getNewsSummary();
             System.out.println(text);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 //        List<String> targets = new ArrayList<String>();
 //        targets.add("award");
@@ -78,7 +74,6 @@ public class SentimentAnalysis {
 	public String getNewsSummary() throws IOException {
 		String jsonText = "";
 
-		try {
 			URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/news/last/50");
 			URLConnection iexAPI = iex.openConnection();
 			BufferedReader in = new BufferedReader(
@@ -91,9 +86,6 @@ public class SentimentAnalysis {
 			}
 
 			in.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
 
 		Gson gson = new Gson();
 		News[] newsArray = gson.fromJson(jsonText, News[].class);

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.json.JSONException;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XChartPanel;
@@ -25,7 +26,7 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 
 public class DataGraph{
 	
-    public XChartPanel<XYChart> drawGraph(String symbol, String timeRange) throws IOException {
+    public void drawGraph(String symbol, String timeRange) throws IOException, JSONException {
     	IEXTradingPrices stockdata = new IEXTradingPrices();
         int[] xData1 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         int[] xData2 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
@@ -106,6 +107,17 @@ public class DataGraph{
         series.setMarkerColor(Color.ORANGE);
         series.setMarker(SeriesMarkers.CIRCLE);
         series.setLineStyle(SeriesLines.SOLID);
-        return new SwingWrapper<XYChart>(chart).getXChartPanel();
+        new SwingWrapper<XYChart>(chart).displayChart();
+        //sw.displayChart();
     }
+    
+    public static void main(String[] args) {
+		DataGraph dg = new DataGraph();
+		try {
+			dg.drawGraph("aapl", "1y");
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
