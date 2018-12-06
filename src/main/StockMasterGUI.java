@@ -126,6 +126,8 @@ public class StockMasterGUI extends JFrame {
 					//eIO.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
+				} catch (JSONException eJS) {
+					error.setText("Parse failed");
 				}
 				revalidate();
 			}
