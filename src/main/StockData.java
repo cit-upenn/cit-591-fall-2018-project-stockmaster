@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 /**
  * 
- * @author 
+ * @author Shiqing (Jill) Liu
  *
  */
 public class StockData {
@@ -30,7 +30,9 @@ public class StockData {
         String jsonText = "";
         URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + range);
         URLConnection iexAPI = iex.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(iexAPI.getInputStream()));
+        BufferedReader in = new BufferedReader(
+        		new InputStreamReader(
+        				iexAPI.getInputStream()));
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
         	jsonText += inputLine;
