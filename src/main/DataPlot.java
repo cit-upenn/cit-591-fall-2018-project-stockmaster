@@ -116,7 +116,7 @@ public class DataPlot{
     //for daily prices  
     
     
-    public XChartPanel<XYChart> drawTimeGraph(String symbol, String timeRange) throws IOException, JSONException {
+    public XYChart getShortTermChart(String symbol, String timeRange) throws IOException, JSONException {
     	
     	StockData stockdata = new StockData();
 //        double[] xData1 = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
@@ -131,7 +131,6 @@ public class DataPlot{
         	String[] parts = key.split(":");
         	String part1 = parts[0]; 
         	String part2 = parts[1]; 
-    
         	
         	double d1 = Double.parseDouble(part1);
         	double d2 = Double.parseDouble(part2);
@@ -190,13 +189,12 @@ public class DataPlot{
         
         List<Double> x = new ArrayList<Double>();
         List<Double> y = new ArrayList<Double>();
+        
         for (int j = 0; j < (i-1); j++) {
-        	 
-            
             x.add(xData[j]);
             y.add(yData[j]);
-            
-          }
+        }
+        
 //        System.out.println(stockdata.getStockPrice(symbol, timeRange).keySet());
 //        System.out.println(xData);
 //        System.out.println(size);
@@ -207,13 +205,6 @@ public class DataPlot{
         series.setMarkerColor(Color.ORANGE);
         series.setMarker(SeriesMarkers.CIRCLE);
         series.setLineStyle(SeriesLines.SOLID);
-        //return new SwingWrapper<XYChart>(chart).getXChartPanel();
-        new SwingWrapper<XYChart>(chart).displayChart();
-        return new SwingWrapper<XYChart>(chart).getXChartPanel();
+        return chart;
     }
-   
-    
-    
-    
-    
 }

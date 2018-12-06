@@ -20,7 +20,7 @@ public class TestGraph {
 		
 		DataPlot dp = new DataPlot();
 		try {
-			dp.drawTimeGraph("aapl", "1d");
+			dp.getShortTermChart("aapl", "1d");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -196,7 +196,7 @@ public class StockMasterGUI extends JFrame {
 						//plotExcep.printStackTrace();
 						error.setText("Data not available.");
 					}
-				} catch (IOException stockExcep) {
+				} catch (IOException | JSONException stockExcep) {
 					//stockExcep.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
@@ -215,8 +215,8 @@ public class StockMasterGUI extends JFrame {
 				DataPlot stockChart = new DataPlot();
 				try {
 					error.setText("");
-					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException combinedExcep) {
+					chart.add(new XChartPanel<XYChart>(stockChart.getShortTermChart(stock, time)));
+				} catch (IOException | JSONException combinedExcep) {
 					//combinedExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
