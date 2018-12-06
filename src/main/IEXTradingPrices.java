@@ -42,7 +42,7 @@ public class IEXTradingPrices {
         
         switch (range) {
         case "ytd":
-        	for (int i = 0; i < ja.length(); i+=10) {
+        	for (int i = 0; i < ja.length(); i+=12) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("date");
         		double open = object.getDouble("open");
@@ -58,7 +58,7 @@ public class IEXTradingPrices {
             }
         	break;
         case "1m": 
-        	for (int i = 0; i < ja.length(); i+=10) {
+        	for (int i = 0; i < ja.length(); i+=1) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("date");
         		double open = object.getDouble("open");
@@ -66,7 +66,7 @@ public class IEXTradingPrices {
             }
         	break;
         case "3m":
-        	for (int i = 0; i < ja.length(); i+=10) {
+        	for (int i = 0; i < ja.length(); i+=3) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("date");
         		double open = object.getDouble("open");

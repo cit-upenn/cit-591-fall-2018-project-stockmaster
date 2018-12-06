@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
 import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
 
 /**
  * An app which gathers and graphs stock data based on user-specified time range, and runs a sentimental analysis
@@ -37,10 +39,10 @@ public class StockMasterGUI extends JFrame {
 	private JButton monthly;
 	private JButton quarterly;
 	private JButton yearly;
-	private JLabel error;
 	private JLabel emoji;
+	private JLabel error;
 	private JPanel graph;
-	protected String stock = "aapl";
+	protected String stock = "";
 	protected String time = "ytd";
 	private double sentiment = 0;
 
@@ -51,7 +53,7 @@ public class StockMasterGUI extends JFrame {
 	
 	private void createFrame() {
 		setTitle("StockMaster");
-		setSize(800, 800);
+		setSize(800, 770);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -63,8 +65,8 @@ public class StockMasterGUI extends JFrame {
 		monthly = new JButton("Monthly");
 		quarterly = new JButton("Quarterly");
 		yearly = new JButton("Yearly");
-		error = new JLabel();
 		emoji = new JLabel();
+		error = new JLabel();
 		graph = new JPanel();
 		graph.setPreferredSize(new Dimension(800, 700));
 		
@@ -75,8 +77,8 @@ public class StockMasterGUI extends JFrame {
 		panel.add(monthly);
 		panel.add(quarterly);
 		panel.add(yearly);
-		panel.add(error);
 		panel.add(emoji);
+		panel.add(error);
 		panel.add(graph);
 		add(panel);
 		setVisible(true);
@@ -86,11 +88,12 @@ public class StockMasterGUI extends JFrame {
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Search clicked!");
+				//System.out.println("Search clicked!");
 				stock = textField.getText();
+				time = "ytd";
 				SentimentAnalysis stockNews = new SentimentAnalysis(stock);
+				graph.removeAll();
 				try {
-					error.setText("");
 					sentiment = stockNews.runSentimentAnalysis();
 					if (sentiment > 0.67)
 						emoji.setIcon(new ImageIcon(imgLoc1));
@@ -103,47 +106,91 @@ public class StockMasterGUI extends JFrame {
 					else
 						emoji.setIcon(new ImageIcon(imgLoc5));
 					DataGraph stockGraph = new DataGraph();
-					graph.removeAll();
-					graph.add(new XChartPanel(stockGraph.drawGraph(stock, time)));
-					revalidate();
-				} catch (IOException | JSONException e1) {
-					e1.printStackTrace();
+					try {
+						error.setText("");
+						graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
+					} catch (JSONException e1) {
+						//e1.printStackTrace();
+						error.setText("Data not available.");
+					}
+				} catch (IOException e1) {
+					//e1.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
-					revalidate();
 				}
+				revalidate();
 			}
 		});
 		
 		daily.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Daily clicked!");
+				//System.out.println("Daily clicked!");
 				time = "1d";
+				DataGraph stockGraph = new DataGraph();
+				graph.removeAll();
+				try {
+					error.setText("");
+					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
+				} catch (IOException | JSONException e1) {
+					e1.printStackTrace();
+					error.setText("Data not available");
+				}
+				revalidate();
 			}
 		});
 		
 		monthly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Monthly clicked!");
+				//System.out.println("Monthly clicked!");
 				time = "1m";
+				DataGraph stockGraph = new DataGraph();
+				graph.removeAll();
+				try {
+					error.setText("");
+					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
+				} catch (IOException | JSONException e1) {
+					//e1.printStackTrace();
+					error.setText("Data not available");
+				}
+				revalidate();
 			}
 		});
 		
 		quarterly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Quarterly clicked!");
+				//System.out.println("Quarterly clicked!");
 				time = "3m";
+				DataGraph stockGraph = new DataGraph();
+				graph.removeAll();
+				try {
+					error.setText("");
+					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
+				} catch (IOException | JSONException e1) {
+					//e1.printStackTrace();
+					error.setText("Data not available");
+				}
+				revalidate();
 			}
 		});
 		
 		yearly.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Yearly clicked!");
+				//System.out.println("Yearly clicked!");
 				time = "ytd";
+				DataGraph stockGraph = new DataGraph();
+				graph.removeAll();
+				try {
+					error.setText("");
+					graph.add(new XChartPanel<XYChart>(stockGraph.drawGraph(stock, time)));
+				} catch (IOException | JSONException e1) {
+					//e1.printStackTrace();
+					error.setText("Data not available");
+				}
+				revalidate();
 			}
 		});
 	}

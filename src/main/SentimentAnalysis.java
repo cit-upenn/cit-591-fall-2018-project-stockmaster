@@ -41,7 +41,7 @@ public class SentimentAnalysis {
 //        IEXTradingNews news = new IEXTradingNews();
         String text = "";
             text = this.getNewsSummary();
-            System.out.println(text);
+            //System.out.println(text);
 
 //        List<String> targets = new ArrayList<String>();
 //        targets.add("award");
