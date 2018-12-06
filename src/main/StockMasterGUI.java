@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -100,10 +101,10 @@ public class StockMasterGUI extends JFrame {
 				stock = textField.getText();
 				time = "ytd";
 				chart.removeAll();
-				NewsAnalysis stockNews = new NewsAnalysis(stock);
-				DataPlot stockChart = new DataPlot();
+				NewsAnalysis newsAnalysis = new NewsAnalysis(stock);
+				DataPlot dataPlot = new DataPlot();
 				try {
-					sentiment = stockNews.getSentiment();
+					sentiment = newsAnalysis.getSentiment();
 					if (sentiment > 0.67)
 						emoji.setIcon(new ImageIcon(imgLoc1));
 					else if (sentiment > 0.33)
@@ -116,8 +117,8 @@ public class StockMasterGUI extends JFrame {
 						emoji.setIcon(new ImageIcon(imgLoc5));
 					try {
 						error.setText("");
-						chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-					} catch (JSONException eJSON) {
+						chart.add(new XChartPanel<XYChart>(dataPlot.getLongTermChart(stock, time)));
+					} catch (JSONException | ParseException eJSON) {
 						//eJSON.printStackTrace();
 						error.setText("Data not available.");
 					}
@@ -141,7 +142,7 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException eIOorJSON) {
+				} catch (IOException | JSONException | ParseException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
 				}
@@ -160,7 +161,7 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException eIOorJSON) {
+				} catch (IOException | JSONException | ParseException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
 				}
@@ -179,7 +180,7 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException eIOorJSON) {
+				} catch (IOException | JSONException | ParseException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
 				}
@@ -198,7 +199,7 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException eIOorJSON) {
+				} catch (IOException | JSONException | ParseException eIOorJSON) {
 					//eIOorJSON.printStackTrace();
 					error.setText("Data not available.");
 				}

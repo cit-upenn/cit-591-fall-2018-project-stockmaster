@@ -29,7 +29,7 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 
 public class DataPlot{
 	
-    public XYChart getLongTermChart(String symbol, String timeRange) throws IOException, JSONException {
+    public XYChart getLongTermChart(String symbol, String timeRange) throws IOException, JSONException, ParseException {
     	StockData stockdata = new StockData();
         int[] xData1 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         int[] xData2 = new int[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
@@ -94,12 +94,9 @@ public class DataPlot{
         Date date = null;
         for (int j = 0; j < size; j++) {
         	 
-            try {
               date = sdf.parse(xData3[j]+ "."+ xData2[j] + "." + xData1[j]);
 //            	date = sdf.parse(j+".10.2018");
-            } catch (ParseException e) {
-              e.printStackTrace();
-            }
+              
             x.add(date);
             y.add(yData[j]);
 //            y.add(Math.random() * j);

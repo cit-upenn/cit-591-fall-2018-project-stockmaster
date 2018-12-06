@@ -18,7 +18,6 @@ public class StockData {
     public TreeMap<String, Double> getStockPrice(String symbol, String range) throws IOException, JSONException {
         String jsonText = "";
 
-        try {
             URL iex = new URL("https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + range);
             URLConnection iexAPI = iex.openConnection();
             BufferedReader in = new BufferedReader(
@@ -31,9 +30,6 @@ public class StockData {
             }
 
             in.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         //System.out.println(jsonText);
         JSONArray ja = new JSONArray(jsonText);
