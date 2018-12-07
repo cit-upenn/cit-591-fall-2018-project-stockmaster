@@ -192,12 +192,12 @@ public class StockMasterGUI extends JFrame {
 					try {
 						error.setText("");
 						chart.add(new XChartPanel<XYChart>(dataPlot.getLongTermChart(stock, time)));
-					} catch (JSONException | ParseException plotExcep) {
-						//plotExcep.printStackTrace();
+					} catch (ParseException longTermPlotExcep) {
+						//longTermPlotExcep.printStackTrace();
 						error.setText("Data not available.");
 					}
-				} catch (IOException | JSONException stockExcep) {
-					//stockExcep.printStackTrace();
+				} catch (IOException | JSONException stockCodeExcep) {
+					//stockCodeExcep.printStackTrace();
 					error.setText("Invalid stock code entered. Please enter a valid stock code.");
 					emoji.setIcon(new ImageIcon());
 				}
@@ -216,8 +216,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getShortTermChart(stock, time)));
-				} catch (IOException | JSONException combinedExcep) {
-					//combinedExcep.printStackTrace();
+				} catch (IOException | JSONException shortTermPlotExcep) {
+					shortTermPlotExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -235,8 +235,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException combinedExcep) {
-					//combinedExcep.printStackTrace();
+				} catch (IOException | JSONException | ParseException longTermPlotExcep) {
+					//longTermPlotExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -254,8 +254,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException combinedExcep) {
-					//combinedExcep.printStackTrace();
+				} catch (IOException | JSONException | ParseException longTermPlotExcep) {
+					//longTermPlotExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();
@@ -273,8 +273,8 @@ public class StockMasterGUI extends JFrame {
 				try {
 					error.setText("");
 					chart.add(new XChartPanel<XYChart>(stockChart.getLongTermChart(stock, time)));
-				} catch (IOException | JSONException | ParseException combinedExcep) {
-					//combinedExcep.printStackTrace();
+				} catch (IOException | JSONException | ParseException longTermPlotExcep) {
+					//longTermPlotExcep.printStackTrace();
 					error.setText("Data not available.");
 				}
 				revalidate();

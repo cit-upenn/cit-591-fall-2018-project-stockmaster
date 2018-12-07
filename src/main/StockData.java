@@ -43,7 +43,7 @@ public class StockData {
         TreeMap<String, Double> tm = new TreeMap<String, Double>();
         switch (time) {
         case "ytd":
-        	for (int i = 0; i < ja.length(); i += 12) {
+        	for (int i = 0; i < ja.length(); i += 11) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("date");
         		double open = object.getDouble("open");
@@ -51,7 +51,7 @@ public class StockData {
             }
         	break;
         case "1d":
-        	for (int i = 0; i < ja.length(); i += 24) {
+        	for (int i = 0; i < ja.length(); i += 17) {
         		JSONObject object = ja.getJSONObject(i);
         		String date = object.getString("minute");
         		double open = object.getDouble("open");
