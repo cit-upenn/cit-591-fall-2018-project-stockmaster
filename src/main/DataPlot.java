@@ -31,22 +31,24 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 public class DataPlot{
 	
 	/**
-	 * 
+	 * For weekly, monthly, and yearly graphs
 	 * @param stock
 	 * @param time
-	 * @return
+	 * @return chart
 	 * @throws IOException
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
     public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException {
     	StockData stockdata = new StockData();
+    	//prepare four arrays to store necessary data  
         int[] xData1 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
         int[] xData2 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
         int[] xData3 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
         double[] yData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
         int size = stockdata.getStockPrice(stock, time).keySet().size();        
         int i = 0;
+        //split data in to three parts, convert string form to integer form and put into array
         for (String key : stockdata.getStockPrice(stock, time).keySet()) {
         	String[] parts = key.split("-");
         	String part1 = parts[0]; 
@@ -62,7 +64,7 @@ public class DataPlot{
         	yData[i] = price;
         	i++;
         }
-        //Show it
+        //build a chart, design of the chart
         XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Date").yAxisTitle("Price").build();
         chart.getStyler().setPlotBackgroundColor(ChartColor.getAWTColor(ChartColor.GREY));
         chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
@@ -73,29 +75,25 @@ public class DataPlot{
         chart.getStyler().setChartTitleBoxVisible(true);
         chart.getStyler().setChartTitleBoxBorderColor(Color.BLACK);
         chart.getStyler().setPlotGridLinesVisible(true);
-        //chart.getStyler().setAxisTickPadding(20);
-        //chart.getStyler().setAxisTickMarkLength(150);
-        //chart.getStyler().setPlotMargin(200);
         chart.getStyler().setChartTitleFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
         chart.getStyler().setLegendFont(new Font(Font.SERIF, Font.PLAIN, 18));
         chart.getStyler().setLegendPosition(LegendPosition.InsideSE);
         chart.getStyler().setLegendSeriesLineLength(12);
         chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.ITALIC, 18));
         chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.PLAIN, 11));
-        chart.getStyler().setDatePattern("dd-MM-yyyy");
+        chart.getStyler().setDatePattern("MM-dd-yyyy");
         chart.getStyler().setDecimalPattern("#0.000");
         chart.getStyler().setLocale(Locale.GERMAN);
         chart.getStyler().setPlotMargin(20);
         List<Date> x = new ArrayList<Date>();
         List<Double> y = new ArrayList<Double>();
-        DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        DateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
         Date date = null;
         for (int j = 0; j < size; j++) {
-              date = sdf.parse(xData3[j]+ "."+ xData2[j] + "." + xData1[j]);
-              //date = sdf.parse(j+".10.2018");
+            date = sdf.parse(xData2[j]+ "."+ xData3[j] + "." + xData1[j]);
             x.add(date);
             y.add(yData[j]);
-            //y.add(Math.random() * j);
+
         }
         XYSeries series = chart.addSeries("Price", x, y);
         series.setLineColor(XChartSeriesColors.BLUE);
@@ -109,17 +107,14 @@ public class DataPlot{
      * For daily prices
      * @param stock
      * @param time
-     * @return
+     * @return chart
      * @throws IOException
      * @throws JSONException
      */
     public XYChart getShortTermChart(String stock, String time) throws IOException, JSONException {
     	StockData stockdata = new StockData();
-        //double[] xData1 = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
-        //double[] xData2 = new double[stockdata.getStockPrice(symbol, timeRange).keySet().size()];
         double[] yData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
-        double[] xData = new double[stockdata.getStockPrice(stock, time).keySet().size()];
-        //int size  = stockdata.getStockPrice(stock, time).keySet().size();        
+        double[] xData = new double[stockdata.getStockPrice(stock, time).keySet().size()];     
         int i = 0;
         for (String key : stockdata.getStockPrice(stock, time).keySet()) {
         	String[] parts = key.split(":");
@@ -128,13 +123,11 @@ public class DataPlot{
         	double d1 = Double.parseDouble(part1);
         	double d2 = Double.parseDouble(part2);
         	double price = stockdata.getStockPrice(stock, time).get(key);
-        	//xData1[i]= d1;
-        	//xData2[i]= d2;
         	xData[i] = d1 + d2 / 60;  	
         	yData[i] = price;
         	i++;
         }
-        //Show it
+        //build a chart, design of the chart
         XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Time").yAxisTitle("Price").build();
         chart.getStyler().setPlotBackgroundColor(ChartColor.getAWTColor(ChartColor.GREY));
         chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
@@ -145,9 +138,6 @@ public class DataPlot{
         chart.getStyler().setChartTitleBoxVisible(true);
         chart.getStyler().setChartTitleBoxBorderColor(Color.BLACK);
         chart.getStyler().setPlotGridLinesVisible(true);
-        //chart.getStyler().setAxisTickPadding(20);    
-        //chart.getStyler().setAxisTickMarkLength(150);   
-        //chart.getStyler().setPlotMargin(200);
         chart.getStyler().setChartTitleFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
         chart.getStyler().setLegendFont(new Font(Font.SERIF, Font.PLAIN, 18));
         chart.getStyler().setLegendPosition(LegendPosition.InsideSE);
@@ -158,6 +148,7 @@ public class DataPlot{
         chart.getStyler().setLocale(Locale.GERMAN);
         chart.getStyler().setPlotMargin(20);
         Map<Double, Object> xMarkMap = new TreeMap<Double, Object>();
+        //in order to show time in string form on x-axis
         for (double d : xData) {
             int m = (int) d;
             double s = d - m;
@@ -173,10 +164,7 @@ public class DataPlot{
             x.add(xData[j]);
             y.add(yData[j]);
         }
-        //System.out.println(stockdata.getStockPrice(symbol, timeRange).keySet());
-        //System.out.println(xData);
-        //System.out.println(size);
-        //System.out.println(x.size());
+
         XYSeries series = chart.addSeries("Price", x, y);
         chart.setXAxisLabelOverrideMap(xMarkMap);
         series.setLineColor(XChartSeriesColors.BLUE);
