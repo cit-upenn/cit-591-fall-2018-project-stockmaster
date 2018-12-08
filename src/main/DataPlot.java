@@ -65,7 +65,7 @@ public class DataPlot{
         	i++;
         }
         //build a chart, design of the chart
-        XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Date").yAxisTitle("Price").build();
+        XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Date").yAxisTitle("Price($)").build();
         chart.getStyler().setPlotBackgroundColor(ChartColor.getAWTColor(ChartColor.GREY));
         chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
@@ -82,7 +82,7 @@ public class DataPlot{
         chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.ITALIC, 18));
         chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.PLAIN, 11));
         chart.getStyler().setDatePattern("MM-dd-yyyy");
-        chart.getStyler().setDecimalPattern("#0.000");
+        chart.getStyler().setYAxisDecimalPattern("$ ###.#");
         chart.getStyler().setLocale(Locale.GERMAN);
         chart.getStyler().setPlotMargin(20);
         List<Date> x = new ArrayList<Date>();
@@ -128,7 +128,7 @@ public class DataPlot{
         	i++;
         }
         //build a chart, design of the chart
-        XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Time").yAxisTitle("Price").build();
+        XYChart chart = new XYChartBuilder().width(800).height(600).title("Stock Price").xAxisTitle("Time").yAxisTitle("Price($)").build();
         chart.getStyler().setPlotBackgroundColor(ChartColor.getAWTColor(ChartColor.GREY));
         chart.getStyler().setPlotGridLinesColor(new Color(255, 255, 255));
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
@@ -144,9 +144,10 @@ public class DataPlot{
         chart.getStyler().setLegendSeriesLineLength(12);
         chart.getStyler().setAxisTitleFont(new Font(Font.SANS_SERIF, Font.ITALIC, 18));
         chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.PLAIN, 11));
-        chart.getStyler().setDecimalPattern("#0.000");
         chart.getStyler().setLocale(Locale.GERMAN);
         chart.getStyler().setPlotMargin(20);
+//        chart.getStyler().setDecimalPattern("#,###");
+        chart.getStyler().setYAxisDecimalPattern("$ ###.#");
         Map<Double, Object> xMarkMap = new TreeMap<Double, Object>();
         //in order to show time in string form on x-axis
         for (double d : xData) {
