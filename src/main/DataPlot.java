@@ -41,7 +41,7 @@ public class DataPlot{
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-    public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException, NoSuchElementException {
+    public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException {
     	StockData stockdata = new StockData();
     	//prepare four arrays to store necessary data  
         int[] xData1 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
