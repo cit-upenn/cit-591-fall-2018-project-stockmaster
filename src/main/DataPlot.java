@@ -100,6 +100,7 @@ public class DataPlot{
         series.setMarkerColor(Color.ORANGE);
         series.setMarker(SeriesMarkers.CIRCLE);
         series.setLineStyle(SeriesLines.SOLID);
+        System.out.println(yData[size-1]);
         return chart;
     }
     
@@ -146,7 +147,6 @@ public class DataPlot{
         chart.getStyler().setAxisTickLabelsFont(new Font(Font.SERIF, Font.PLAIN, 11));
         chart.getStyler().setLocale(Locale.GERMAN);
         chart.getStyler().setPlotMargin(20);
-//        chart.getStyler().setDecimalPattern("#,###");
         chart.getStyler().setYAxisDecimalPattern("$ ###.#");
         Map<Double, Object> xMarkMap = new TreeMap<Double, Object>();
         //in order to show time in string form on x-axis
