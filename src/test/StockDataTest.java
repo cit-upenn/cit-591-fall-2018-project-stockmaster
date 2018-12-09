@@ -27,7 +27,7 @@ public class StockDataTest {
 		stockData = new StockData();
 	}
 	
-	//Test purpose: tests basic functionality
+	//Test purpose: tests basic functionality and check if the first data point is accurate
 	@Test
 	public void testDataAccuracy1() throws IOException, JSONException {
 		stockData = new StockData();
@@ -35,7 +35,7 @@ public class StockDataTest {
 		assertEquals(data, stockData.getStockPrice("aapl", "ytd").get("2018-01-02"));
 	}
 	
-	//Test purpose: tests basic functionality 
+	//Test purpose: tests basic functionality and check if the first data point is accurate
 	@Test
 	public void testDataAccuracy2() throws IOException, JSONException {
 		stockData = new StockData();
@@ -43,7 +43,7 @@ public class StockDataTest {
 		assertEquals(data, stockData.getStockPrice("aapl", "1d").get("09:30"));
 	}
 	
-	//Test purpose: tests basic functionality
+	//Test purpose: tests basic functionality and check if the first data point is accurate
 	@Test
 	public void testDataAccuracy3() throws IOException, JSONException {
 		stockData = new StockData();
@@ -51,7 +51,7 @@ public class StockDataTest {
 		assertEquals(data, stockData.getStockPrice("aapl", "1m").get("2018-10-29"));
 	}
 	
-	//Test purpose: tests basic functionality
+	//Test purpose: tests basic functionality and check if the first data point is accurate
 	@Test
 	public void testDataAccuracy4() throws IOException, JSONException {
 		stockData = new StockData();
@@ -59,7 +59,7 @@ public class StockDataTest {
 		assertEquals(data, stockData.getStockPrice("aapl", "3m").get("2018-08-28"));
 	}
   
-	//Test purpose: test IOException is thrown with getStockPrice method
+	//Test purpose: test IOException is thrown with getStockPrice method when stock ticker is invalid
     @Test
 	public void testIOException1() {
     	stockData = new StockData();
@@ -68,7 +68,7 @@ public class StockDataTest {
 	    });
 	}
     
-   //Test purpose: test IOException is thrown with getStockPrice method
+   //Test purpose: test IOException is thrown with getStockPrice method when stock ticker is invalid
     @Test
 	public void testIOException2() {
     	stockData = new StockData();
@@ -77,7 +77,7 @@ public class StockDataTest {
 	    });
 	}
     
-    //Test purpose: test JSONException is thrown with parseJSON method
+    //Test purpose: test JSONException is thrown with parseJSON method when JSON response is invalid
     @Test
 	public void testJSONException1() {
     	stockData = new StockData();
@@ -87,7 +87,7 @@ public class StockDataTest {
 	    });
 	}
     
-    //Test purpose: test JSONException is thrown with parseJSON method
+    //Test purpose: test JSONException is thrown with parseJSON method when JSON response is invalid
     @Test
 	public void testJSONException2() {
     	stockData = new StockData();

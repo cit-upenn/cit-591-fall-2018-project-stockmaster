@@ -28,7 +28,7 @@ public class NewsAnalysisTest {
 	}
 	
   
-	//Test purpose: test IOException is thrown with getNewsSummary method
+	//Test purpose: test IOException is thrown with getNewsSummary method when stock ticker is invalid
     @Test
 	public void testIOException1() {
     	newsAnalysis = new NewsAnalysis("");
@@ -37,7 +37,7 @@ public class NewsAnalysisTest {
 	    });
 	}
     
-    //Test purpose: test IOException is thrown with getNewsSummary method
+    //Test purpose: test IOException is thrown with getNewsSummary method when stock ticker is invalid
     @Test
 	public void testIOException2() {
     	newsAnalysis = new NewsAnalysis("symbol");
@@ -46,7 +46,7 @@ public class NewsAnalysisTest {
 	    });
 	}
     
-    //Test purpose: test JSONException is thrown with parseJSON method
+    //Test purpose: test JSONException is thrown with parseJSON method when JSON response is invalid
     @Test
 	public void testJSONException1() {
     	newsAnalysis = new NewsAnalysis("aapl");
@@ -56,7 +56,7 @@ public class NewsAnalysisTest {
 	    });
 	}
     
-    //Test purpose: test JSONException is thrown with parseJSON method
+    //Test purpose: test JSONException is thrown with parseJSON method when JSON response is invalid
     @Test
 	public void testJSONException2() {
     	newsAnalysis = new NewsAnalysis("goog");

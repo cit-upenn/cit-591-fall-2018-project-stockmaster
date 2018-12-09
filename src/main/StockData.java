@@ -38,7 +38,6 @@ public class StockData {
         	jsonText += inputLine;
         }
         in.close();
-        //System.out.println(jsonText);
         
         TreeMap<String, Double> tm = new TreeMap<String, Double>();
         parseJSON(tm, jsonText, time);

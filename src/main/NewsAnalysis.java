@@ -49,12 +49,9 @@ public class NewsAnalysis {
 				.build();
 		NaturalLanguageUnderstanding naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2018-03-16", options);
 		naturalLanguageUnderstanding.setEndPoint("https://gateway.watsonplatform.net/natural-language-understanding/api");
-		//        IEXTradingNews news = new IEXTradingNews();
 		String text = "";
 		text = this.getNewsSummary();
-		//System.out.println(text);
-		//        List<String> targets = new ArrayList<String>();
-		//        targets.add("award");
+
 		SentimentOptions sentiment = new SentimentOptions.Builder()
 				.document(true)
 				.build();
@@ -68,10 +65,9 @@ public class NewsAnalysis {
 		AnalysisResults response = naturalLanguageUnderstanding
 				.analyze(parameters)
 				.execute();
-		//String label = response.getSentiment().getDocument().getLabel();
+
 		double score = response.getSentiment().getDocument().getScore();
-		//System.out.println(label);
-		//System.out.println(score);
+
 		return score;
 	}
 	
