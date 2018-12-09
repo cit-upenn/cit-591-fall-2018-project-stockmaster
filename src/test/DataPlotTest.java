@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.Assertions;
@@ -32,13 +34,13 @@ public class DataPlotTest {
 		//assertEquals("DogXXXDog", dataPlot.getMyString());
 	}
   
-	//Test purpose: test CollectionUnderflowException is thrown with get method
+	//Test purpose: test IOException is thrown when stock code or time is not available
     @Test
 	public void testIOException() {
 	    Assertions.assertThrows(IOException.class, () -> {
-	    	//dataPlot.add("Hello");
-	    	//dataPlot.add(5);
-	    	//dataPlot.get(3);
+	    	DataPlot dp = new DataPlot();
+			dp.getLongTermChart("xxxx", " ");
+			fail("No exception throwed.");
 	    });
 	}
 }
