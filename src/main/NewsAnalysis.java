@@ -38,7 +38,7 @@ public class NewsAnalysis {
 	}
 
 	/**
-	 * 
+	 * Feed news summary texts into IBM Watson API and run sentiment analysis on texts
 	 * @return the analysis result pulled from the sentiment
 	 * @throws IOException
 	 * @throws JSONException
@@ -75,6 +75,12 @@ public class NewsAnalysis {
 		return score;
 	}
 	
+	/**
+	 * Parse JSON response and retrieve the news summary texts
+	 * @return a string that contains all summaries for the most recent 50 pieces of news
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public String getNewsSummary() throws IOException, JSONException {
 		String jsonText = "";
 		URL iex = new URL("https://api.iextrading.com/1.0/stock/" + stock + "/news/last/50");
@@ -87,8 +93,21 @@ public class NewsAnalysis {
 			jsonText += inputLine;
 		}
 		in.close();
-		JSONArray ja = new JSONArray(jsonText);
+		
 		String text = "";
+		
+		return parseJSON(text, jsonText);
+	}
+	
+	/**
+	 * Parse API response 
+	 * @param text An empty string 
+	 * @param jsonText API response
+	 * @return A string that contains the news summary for the most recent news
+	 * @throws JSONException
+	 */
+	public String parseJSON(String text, String jsonText) throws JSONException {
+		JSONArray ja = new JSONArray(jsonText);
 		for (int i = 0; i < ja.length(); i++) {
 			JSONObject object = ja.getJSONObject(i);
 			String newsText = object.getString("summary");

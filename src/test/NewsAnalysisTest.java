@@ -1,7 +1,10 @@
 package test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,10 +12,8 @@ import main.NewsAnalysis;
 
 /**
  *
- * This is an test class for a simple class that represents a Collection of Objects.
- *
- * You should create a behavior test that tests for a CollectionUnderflowException when
- * attempting to remove more objects than is in the Collection.
+ * This is an test class for StockData class methods.
+ * 
  */
 public class NewsAnalysisTest {
 
@@ -20,21 +21,48 @@ public class NewsAnalysisTest {
 	
 	//Test purpose: tests basic functionality
 	@Test
-	public void testReplaceAllDigits1() {
+	public void testSentimentAnalysis() throws IOException, JSONException {
 		newsAnalysis = new NewsAnalysis("aapl");
-		//newsAnalysis.setMyString("Dog456Dog");
-		//newsAnalysis.replaceAllDigits('X');
-		//assertEquals("DogXXXDog", newsAnalysis.getMyString());
+		assertNotNull(newsAnalysis.getNewsSummary());
+		assertNotNull(newsAnalysis.getSentiment());
 	}
+	
   
-	//Test purpose: test CollectionUnderflowException is thrown with get method
+	//Test purpose: test IOException is thrown with getNewsSummary method
     @Test
-	public void testIOException() {
-    	newsAnalysis = new NewsAnalysis("aapl");
+	public void testIOException1() {
+    	newsAnalysis = new NewsAnalysis("");
 	    Assertions.assertThrows(IOException.class, () -> {
-	    	//newsAnalysis.add("Hello");
-	    	//newsAnalysis.add(5);
-	    	//newsAnalysis.get(3);
+	    	newsAnalysis.getNewsSummary();
+	    });
+	}
+    
+    //Test purpose: test IOException is thrown with getNewsSummary method
+    @Test
+	public void testIOException2() {
+    	newsAnalysis = new NewsAnalysis("symbol");
+	    Assertions.assertThrows(IOException.class, () -> {
+	    	newsAnalysis.getNewsSummary();
+	    });
+	}
+    
+    //Test purpose: test JSONException is thrown with parseJSON method
+    @Test
+	public void testJSONException1() {
+    	newsAnalysis = new NewsAnalysis("aapl");
+	    Assertions.assertThrows(JSONException.class, () -> {
+	    	String text = "";
+	    	newsAnalysis.parseJSON(text, "");
+	    });
+	}
+    
+    //Test purpose: test JSONException is thrown with parseJSON method
+    @Test
+	public void testJSONException2() {
+    	newsAnalysis = new NewsAnalysis("goog");
+	    Assertions.assertThrows(JSONException.class, () -> {
+	    	String text = "";
+	    	newsAnalysis.parseJSON(text, "{stock:goog}");
 	    });
 	}
 }

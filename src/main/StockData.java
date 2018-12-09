@@ -19,10 +19,10 @@ import org.json.JSONObject;
 public class StockData {
 	
 	/**
-	 * 
+	 * Request IEXTrading API and parse JSON response 
 	 * @param stock
 	 * @param time
-	 * @return
+	 * @return a TreeMap that maps date/time to the stock price at the corresponding date/time
 	 * @throws IOException
 	 * @throws JSONException
 	 */
@@ -39,42 +39,55 @@ public class StockData {
         }
         in.close();
         //System.out.println(jsonText);
-        JSONArray ja = new JSONArray(jsonText);
+        
         TreeMap<String, Double> tm = new TreeMap<String, Double>();
-        switch (time) {
-        case "ytd":
-        	for (int i = 0; i < ja.length(); i += 11) {
-        		JSONObject object = ja.getJSONObject(i);
-        		String date = object.getString("date");
-        		double open = object.getDouble("open");
-        		tm.put(date, open);
-            }
-        	break;
-        case "1d":
-        	for (int i = 0; i < ja.length(); i += 17) {
-        		JSONObject object = ja.getJSONObject(i);
-        		String date = object.getString("minute");
-        		double open = object.getDouble("open");
-        		tm.put(date, open);
-            }
-        	break;
-        case "1m": 
-        	for (int i = 0; i < ja.length(); i++) {
-        		JSONObject object = ja.getJSONObject(i);
-        		String date = object.getString("date");
-        		double open = object.getDouble("open");
-        		tm.put(date, open);
-            }
-        	break;
-        case "3m":
-        	for (int i = 0; i < ja.length(); i += 3) {
-        		JSONObject object = ja.getJSONObject(i);
-        		String date = object.getString("date");
-        		double open = object.getDouble("open");
-        		tm.put(date, open);
-            }
-        	break;
-        }
+        parseJSON(tm, jsonText, time);
+       
         return tm;
+    }
+    
+    /**
+     * Parse API response 
+     * @param tm A TreeMap that stores date/time and stock price 
+     * @param jsonText API response
+     * @param time Time range specified by the user 
+     * @throws JSONException
+     */
+    public void parseJSON(TreeMap<String, Double> tm, String jsonText, String time) throws JSONException {
+    	 JSONArray ja = new JSONArray(jsonText);
+         switch (time) {
+         case "ytd":
+         	for (int i = 0; i < ja.length(); i += 11) {
+         		JSONObject object = ja.getJSONObject(i);
+         		String date = object.getString("date");
+         		double open = object.getDouble("open");
+         		tm.put(date, open);
+             }
+         	break;
+         case "1d":
+         	for (int i = 0; i < ja.length(); i += 17) {
+         		JSONObject object = ja.getJSONObject(i);
+         		String date = object.getString("minute");
+         		double open = object.getDouble("open");
+         		tm.put(date, open);
+             }
+         	break;
+         case "1m": 
+         	for (int i = 0; i < ja.length(); i++) {
+         		JSONObject object = ja.getJSONObject(i);
+         		String date = object.getString("date");
+         		double open = object.getDouble("open");
+         		tm.put(date, open);
+             }
+         	break;
+         case "3m":
+         	for (int i = 0; i < ja.length(); i += 3) {
+         		JSONObject object = ja.getJSONObject(i);
+         		String date = object.getString("date");
+         		double open = object.getDouble("open");
+         		tm.put(date, open);
+             }
+         	break;
+         }
     }
 }
