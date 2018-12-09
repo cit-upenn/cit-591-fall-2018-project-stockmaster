@@ -1,9 +1,13 @@
 package test;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.NoSuchElementException;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,12 +30,18 @@ public class DataPlotTest {
 		dataPlot = new DataPlot();
 	}
 	
-	//Test purpose: tests basic functionality
+	//Test Purpose: check if the long term plot could be generated successfully
 	@Test
-	public void testReplaceAllDigits1() {
-		//dataPlot.setMyString("Dog456Dog");
-		//dataPlot.replaceAllDigits('X');
-		//assertEquals("DogXXXDog", dataPlot.getMyString());
+	public void LongtermTest() throws IOException, JSONException, ParseException, NoSuchElementException  {
+		DataPlot dp2 = new DataPlot();
+		assertNull(dp2.getLongTermChart("aapl", "Yearly"));		
+	}
+	
+	//Test Purpose: check if the short term plot could be generated successfully
+	@Test
+	public void ShorttermTest() throws IOException, JSONException, ParseException, NoSuchElementException {
+		DataPlot dp2 = new DataPlot();
+		assertNull(dp2.getShortTermChart("aapl", "Daily"));		
 	}
   
 	//Test purpose: test IOException is thrown when stock code or time is not available

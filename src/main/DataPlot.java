@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class DataPlot{
 	 * @throws JSONException
 	 * @throws ParseException
 	 */
-    public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException {
+    public XYChart getLongTermChart(String stock, String time) throws IOException, JSONException, ParseException, NoSuchElementException {
     	StockData stockdata = new StockData();
     	//prepare four arrays to store necessary data  
         int[] xData1 = new int[stockdata.getStockPrice(stock, time).keySet().size()];
@@ -106,7 +107,7 @@ public class DataPlot{
     }
     
     /**
-     * Analyze data from StockData class and show daily stock pricegraph
+     * Analyze data from StockData class and show daily stock price graph
 	 * according to user's request
      * @param stock
      * @param time
