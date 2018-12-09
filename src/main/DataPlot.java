@@ -31,7 +31,8 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 public class DataPlot{
 	
 	/**
-	 * For weekly, monthly, and yearly graphs
+	 * Analyze data from StockData class and show weekly, monthly, or yearly stock price graph
+	 * according to user's request
 	 * @param stock
 	 * @param time
 	 * @return chart
@@ -100,12 +101,13 @@ public class DataPlot{
         series.setMarkerColor(Color.ORANGE);
         series.setMarker(SeriesMarkers.CIRCLE);
         series.setLineStyle(SeriesLines.SOLID);
-        System.out.println(yData[size-1]);
+//        System.out.println(yData[size-1]);
         return chart;
     }
     
     /**
-     * For daily prices
+     * Analyze data from StockData class and show daily stock pricegraph
+	 * according to user's request
      * @param stock
      * @param time
      * @return chart
