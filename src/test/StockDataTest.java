@@ -1,6 +1,7 @@
 package test;
 
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -27,36 +28,32 @@ public class StockDataTest {
 		stockData = new StockData();
 	}
 	
-	//Test purpose: tests basic functionality and check if the first data point is accurate
+	//Test purpose: tests basic functionality and check if API response is returned for different date range and stock ticker
 	@Test
-	public void testDataAccuracy1() throws IOException, JSONException {
+	public void testAPIResponse1() throws IOException, JSONException {
 		stockData = new StockData();
-		Double data = 167.6431;
-		assertEquals(data, stockData.getStockPrice("aapl", "ytd").get("2018-01-02"));
+		assertNotNull(stockData.getStockPrice("aapl", "ytd"));
 	}
 	
-	//Test purpose: tests basic functionality and check if the first data point is accurate
+	//Test purpose: tests basic functionality and check if API response is returned for different date range and stock ticker
 	@Test
-	public void testDataAccuracy2() throws IOException, JSONException {
+	public void testAPIResponse2() throws IOException, JSONException {
 		stockData = new StockData();
-		Double data = 173.39;
-		assertEquals(data, stockData.getStockPrice("aapl", "1d").get("09:30"));
+		assertNotNull(stockData.getStockPrice("tsla", "1m"));
 	}
 	
-	//Test purpose: tests basic functionality and check if the first data point is accurate
+	//Test purpose: tests basic functionality and check if API response is returned for different date range and stock ticker
 	@Test
-	public void testDataAccuracy3() throws IOException, JSONException {
+	public void testAPIResponse3() throws IOException, JSONException {
 		stockData = new StockData();
-		Double data = 218.4279;
-		assertEquals(data, stockData.getStockPrice("aapl", "1m").get("2018-10-29"));
+		assertNotNull(stockData.getStockPrice("csco", "3m"));
 	}
 	
-	//Test purpose: tests basic functionality and check if the first data point is accurate
+	//Test purpose: tests basic functionality and check if API response is returned for different date range and stock ticker
 	@Test
-	public void testDataAccuracy4() throws IOException, JSONException {
+	public void testAPIResponse4() throws IOException, JSONException {
 		stockData = new StockData();
-		Double data = 218.2485;
-		assertEquals(data, stockData.getStockPrice("aapl", "3m").get("2018-08-28"));
+		assertNotNull(stockData.getStockPrice("qqq", "1d"));
 	}
   
 	//Test purpose: test IOException is thrown with getStockPrice method when stock ticker is invalid
